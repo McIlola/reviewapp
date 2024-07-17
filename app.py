@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, request
 
 app = Flask(__name__)
 
@@ -8,13 +8,17 @@ def index():
     words = ["apina", "banaani", "cembalo"]
     return render_template("index.html", message="Tervetuloa!", items=words)
 
-@app.route("/page1")
-def page1():
-    return "Tämä on sivu 1"
+@app.route("/form")
+def form():
+    return render_template("form.html")
 
-@app.route("/page2")
-def page2():
-    return "Tämä on sivu 2"
+@app.route("/order")
+def order():
+    return render_template("order.html")
+
+@app.route("/result", methods=["POST"])
+def result():
+    name = request.form["name"]
 
 @app.route("/test")
 def test():
