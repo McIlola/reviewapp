@@ -1,8 +1,6 @@
-<title>Etusivu</title>
-<h1>Etusivu</h1>
-<p>{{ message }}</p>
-<ul>
-{% for item in items %}
-<li> {{ item }}
-{% endfor %}
-</ul>
+{% if session.username %}
+<p>Olet kirjautunut nimellä {{ session.username }}</p>
+<a href="/logout"><button>Logout</button></a>
+{% else %}
+<a href="/login"><button>Login</button></a>
+{% endif %}
