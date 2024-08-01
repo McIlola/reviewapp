@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
+<a href="/restaurant1">Oljenkorsi</a>
 <a href="/logout"><button>Logout</button></a>
 {% else %}
 <a href="/login"><button>Login</button></a>
