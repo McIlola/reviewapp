@@ -2,8 +2,8 @@
 <meta charset="utf-8">
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
-<a href="/restaurant1">Oljenkorsi</a>
-<a href="/logout"><button>Logout</button></a>
+<a href="/logout"><button>Logout</button></a><br>
+<a href="/restaurant1">Oljenkorsi</a><br>
 {% else %}
 <a href="/login"><button>Login</button></a>
 {% endif %}
