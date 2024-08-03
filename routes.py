@@ -14,7 +14,7 @@ def restaurant1():
         return render_template("restaurant1.html", allreviews=allreviews)
     
     if request.method == "POST":
-        username = "stilltesting"
+        username = session["username"]
         review = request.form["review"]
         stars = request.form["stars"]
         reviews.review1(username, review, stars)

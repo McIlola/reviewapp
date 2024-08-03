@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<title>Oljenkorsi</title>
-{% for review in allreviews %}
-Review: {{ review.review }} <br>
-Stars: {{ review.stars }} <br>
-Created: {{ review.created_at.strftime("%Y-%m-%d %H:%M:%S") }}<hr>
-{% endfor %} 
+<head>
+    <meta charset="UTF-8">
+</head>
 <form action="/restaurant1" method="POST">
     <p>Review:<br>
         <input type="text" name="review" required minlength="1" maxlength="200"></p>
@@ -12,3 +9,10 @@ Created: {{ review.created_at.strftime("%Y-%m-%d %H:%M:%S") }}<hr>
         <input type="number" name="stars" required min="0" max="5"></p>
     <input type="submit" value="Send">
 </form>
+<title>Oljenkorsi</title>
+{% for review in allreviews %}
+Review: {{ review.review }} <br>
+Stars: {{ review.stars }} <br>
+Created: {{ review.created_at.strftime("%Y-%m-%d %H:%M:%S") }}<hr>
+{% endfor %} 
+
