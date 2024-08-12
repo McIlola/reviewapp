@@ -16,7 +16,7 @@ def restaurant1():
         username = session["username"]
         review = request.form["review"]
         stars = request.form["stars"]
-        reviews.review1(username, review, stars)
+        reviews.review("restaurant1", username, review, stars)
     return redirect("/restaurant1")
 
 @app.route("/login", methods=["GET", "POST"])
@@ -42,8 +42,11 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        loginregister.registeruser(username, password)
-        return redirect("/")
+        new = loginregister.registeruser(username, password)
+        if not new:
+            return render_template("register.html", message = "Username taken!")
+        else: 
+            return redirect("/")
     
 @app.route("/logout")
 def logout():

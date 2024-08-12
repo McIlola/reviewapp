@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 {% extends "layout.html" %}
-{% block title %}Register{% endblock %}
+{% block title %}Oljenkorsi{% endblock %}
 {% block content %}
 <h2>Beer restaurant Oljenkorsi</h2>
+<p>
+
+</p>
 {% if session.username %}
 <form action="/restaurant1" method="POST">
     <p>Review:<br>
@@ -10,7 +13,7 @@
     <p>Stars(0-5):<br>
         <input type="number" name="stars" required min="0" max="5"></p>
     <input type="submit" value="Send">
-</form>
+</form><hr>
 <title>Oljenkorsi</title>
 {% for review in allreviews %}
 By: {{ review.username }} <br>
