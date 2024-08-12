@@ -1,7 +1,6 @@
 from app import app
 import reviews, loginregister
 from flask import redirect, render_template, request, session
-from werkzeug.security import check_password_hash, generate_password_hash
 
 @app.route("/")
 def index():
@@ -30,14 +29,10 @@ def login():
         password = request.form["password"]
         user = loginregister.getuser(username, password)    
         if not user:
-            return render_template("nouser.html")
+            return render_template("login.html", message = "Wrong username or password!")
         else:
-            hash_value = user.password
-            if check_password_hash(hash_value, password):
-                session["username"] = username
-                return redirect("/")
-            else:
-                return render_template("wrongpassword.html")
+            session["username"] = username
+            return redirect("/")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -47,8 +42,7 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        hash_value = generate_password_hash(password)
-        loginregister.registeruser(username, hash_value)
+        loginregister.registeruser(username, password)
         return redirect("/")
     
 @app.route("/logout")

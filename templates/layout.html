@@ -1,0 +1,14 @@
+<!doctype html>
+<title>Reviewapp - {% block title %}{% endblock %}</title>
+<h1>Reviewapp</h1>
+{% if session.username %}
+<a href="/"><button>Home</button></a>
+<a href="/logout"><button>Logout</button></a>
+{% else %}
+<a href="/"><button>Home</button></a>
+<a href="/login"><button>Login</button></a>
+<a href="/register"><button>Register</button></a>
+{% endif %}
+<hr>
+{% block content %}{% endblock %}
+<hr>

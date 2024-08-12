@@ -1,9 +1,15 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+{% extends "layout.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
+<h2>Frontpage</h2>
+Welcome!
 {% if session.username %}
-<p>Olet kirjautunut nimellä {{ session.username }}</p>
-<a href="/logout"><button>Logout</button></a><br>
+<p>Logged in with username: {{ session.username }}</p>
 <a href="/restaurant1">Oljenkorsi</a><br>
 {% else %}
+Login here if you want to write reviews:<br>
 <a href="/login"><button>Login</button></a>
+<a href="/restaurant1">Oljenkorsi</a><br>
 {% endif %}
+{% endblock %}

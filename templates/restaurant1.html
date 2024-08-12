@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-</head>
+{% extends "layout.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<h2>Beer restaurant Oljenkorsi</h2>
+{% if session.username %}
 <form action="/restaurant1" method="POST">
     <p>Review:<br>
         <input type="text" name="review" required minlength="1" maxlength="200"></p>
@@ -11,8 +13,19 @@
 </form>
 <title>Oljenkorsi</title>
 {% for review in allreviews %}
+By: {{ review.username }} <br>
+Review: {{ review.review }} <br>
+Stars: {{ review.stars }} <br>
+Created: {{ review.created_at.strftime("%Y-%m-%d %H:%M:%S") }}<hr>
+{% endfor %}
+{% else %}
+<title>Oljenkorsi</title>
+{% for review in allreviews %}
+By: {{ review.username }} <br>
 Review: {{ review.review }} <br>
 Stars: {{ review.stars }} <br>
 Created: {{ review.created_at.strftime("%Y-%m-%d %H:%M:%S") }}<hr>
 {% endfor %} 
+{% endif %}
+{% endblock %}
 

@@ -2,7 +2,7 @@ from db import db
 from sqlalchemy.sql import text
 
 def getreviews(restaurantnum):
-    sql = text("SELECT id, review, stars, created_at FROM restaurant1 ORDER BY id DESC")
+    sql = text("SELECT id, username, review, stars, created_at FROM restaurant1 ORDER BY id DESC")
     result = db.session.execute(sql).fetchall()
     return result
 

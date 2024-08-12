@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+{% extends "layout.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
 <meta charset="utf-8">
 <form action="/register" method="POST">
     <p>Username:<br>
@@ -7,3 +10,4 @@
         <input type="password" name="password" minlength="6" required></p>
     <input type="submit" value="Register">
 </form>
+{% endblock %}
