@@ -7,7 +7,7 @@
 {{ description }}
 </p>
 {% if session.username %}
-<form action="/restaurant1" method="POST">
+<form action={{ sitename }} method="POST">
     <p>Review:<br>
         <input type="text" name="review" required minlength="1" maxlength="200"></p>
     <p>Stars(0-5):<br>
