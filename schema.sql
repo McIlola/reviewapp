@@ -8,4 +8,26 @@ CREATE TABLE restaurant1 (
     username TEXT, 
     review TEXT, 
     stars INTEGER, 
-    created_at TIMESTAMP);
+    created_at TIMESTAMP
+);
+CREATE TABLE restaurant2 (
+    id SERIAL PRIMARY KEY, 
+    username TEXT, 
+    review TEXT, 
+    stars INTEGER, 
+    created_at TIMESTAMP
+);
+CREATE TABLE restaurant3 (
+    id SERIAL PRIMARY KEY, 
+    username TEXT, 
+    review TEXT, 
+    stars INTEGER, 
+    created_at TIMESTAMP
+);
+CREATE TABLE restaurant4 (
+    id SERIAL PRIMARY KEY, 
+    username TEXT, 
+    review TEXT, 
+    stars INTEGER, 
+    created_at TIMESTAMP
+);

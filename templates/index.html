@@ -6,10 +6,20 @@
 Welcome!
 {% if session.username %}
 <p>Logged in with username: {{ session.username }}</p>
-<a href="/restaurant1">Oljenkorsi</a><br>
+<ul>
+    <li><a href="/restaurant1">Oljenkorsi</a><br>
+    <li><a href="/restaurant2">Unicafe chemicum</a><br>
+    <li><a href="/restaurant3">Unicafe physicum</a><br>
+    <li><a href="/restaurant4">Unicafe exactum</a><br>
+</ul>
 {% else %}
 Login here if you want to write reviews:<br>
 <a href="/login"><button>Login</button></a><hr>
-<a href="/restaurant1">Oljenkorsi</a><br>
+<ul>
+    <li><a href="/restaurant1">Oljenkorsi</a><br>
+    <li><a href="/restaurant2">Unicafe chemicum</a><br>
+    <li><a href="/restaurant3">Unicafe physicum</a><br>
+    <li><a href="/restaurant4">Unicafe exactum</a><br>
+</ul>
 {% endif %}
 {% endblock %}

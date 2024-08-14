@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block title %}{{ title}}{% endblock %}
+{% block content %}
+<h2>{{ title }}</h2>
+<p>
+{{ description }}
+</p>
+{% if session.username %}
+<form action="/restaurant1" method="POST">
+    <p>Review:<br>
+        <input type="text" name="review" required minlength="1" maxlength="200"></p>
+    <p>Stars(0-5):<br>
+        <input type="number" name="stars" required min="0" max="5"></p>
+    <input type="submit" value="Send">
+</form><hr>
+<title>Oljenkorsi</title>
+{% for review in allreviews %}
+By: {{ review.username }} <br>
+Review: {{ review.review }} <br>
+Stars: {{ review.stars }} <br>
+Created: {{ review.created_at.strftime("%Y-%m-%d %H:%M:%S") }}<hr>
+{% endfor %}
+{% else %}
+<title>Oljenkorsi</title>
+{% for review in allreviews %}
+By: {{ review.username }} <br>
+Review: {{ review.review }} <br>
+Stars: {{ review.stars }} <br>
+Created: {{ review.created_at.strftime("%Y-%m-%d %H:%M:%S") }}<hr>
+{% endfor %} 
+{% endif %}
+{% endblock %}
+

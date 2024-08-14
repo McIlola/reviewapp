@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 {% extends "layout.html" %}
-{% block title %}Oljenkorsi{% endblock %}
+{% block title %}{{ title}}{% endblock %}
 {% block content %}
-<h2>Beer restaurant Oljenkorsi</h2>
+<h2>{{ title }}</h2>
 <p>
-
+{{ description }}
 </p>
 {% if session.username %}
 <form action="/restaurant1" method="POST">
