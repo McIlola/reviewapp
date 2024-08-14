@@ -2,7 +2,8 @@
 Sovellus jossa käyttäjä voi kirjautua sisään ja jättää arvostelun johonkin ravintolaan. Käyttäjällä on mahdollisuus antaa tähtiä sekä kirjoittaa arvostelu. Ylläpitäjäkäyttäjällä on oikeus lisätä ravintoloita. Kartta johon ravintolat sjoitetaan.
 ### Nykytilanne
 - Sovellukseen voi luoda käyttäjän, kirjautua sisään ja kirjautua ulos.
-- Yhteen ravintolaan voi tällä hetkellä jättää arvosteluja jotka näkyvät sivulla.
+- Ravintoloihin voi tällä hetkellä jättää arvosteluja jotka näkyvät sivulla.
+- Arvostelujen keskiarvo ja määrä näkyy sivulla.
 
 ## Testaus
 ### Fly.io
