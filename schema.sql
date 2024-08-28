@@ -1,12 +1,11 @@
 CREATE TABLE Users (
     id SERIAL PRIMARY KEY, 
     username TEXT UNIQUE, 
-    password TEXT,
-    mod BOOLEAN
+    password TEXT
 );
 CREATE TABLE Restaurants (
     id SERIAL PRIMARY KEY, 
-    restaurantname TEXT,
+    restaurantname TEXT UNIQUE,
     info TEXT
 );
 CREATE TABLE Reviews (
@@ -22,7 +21,8 @@ CREATE TABLE Followers (
     follow_id INTEGER REFERENCES Users
 );
 CREATE TABLE Suggestions (
-    suggestion TEXT,
+    id SERIAL PRIMARY KEY,
+    suggestion TEXT UNIQUE,
     info TEXT,
     user_id INTEGER REFERENCES Users
 );

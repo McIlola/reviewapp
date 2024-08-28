@@ -1,6 +1,5 @@
 from db import db
 from sqlalchemy.sql import text
-import loginregister
 from flask import session
 
 def avarage(restaurantnum):

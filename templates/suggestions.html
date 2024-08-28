@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block title %}{{ title}}{% endblock %}
+{% block content %}
+<title>Suggestions</title>
+<h2>Restaurant suggestions</h2>
+<p>
+    Leave suggestions for new restaurants here.
+</p>
+{% if session.username %}
+<form action=/suggestions method="POST">
+    <p>Restaurant name:<br>
+        <input type="text" name="restaurant" required minlength="1" maxlength="200"></p>
+    <p>Info about restaurant:<br>
+        <input type="text" name="info" required minlength="1" maxlength="200"></p>
+    <input type="submit" value="Send">
+</form><hr>
+{% for suggestion in allsuggestions %}
+By: {{ suggestion[0] }} <br>
+Restaurant name: {{ suggestion[1] }} <br>
+Info: {{ suggestion[2] }} <hr>
+{% endfor %}
+{% else %}
+<p>
+    Login to leave restaurant suggestions.
+</p> <hr>
+{% for suggestion in allsuggestions %}
+By: {{ suggestion[0] }} <br>
+Restaurant name: {{ suggestion[1] }} <br>
+Info: {{ suggestion[2] }} <hr>
+{% endfor %} 
+{% endif %}
+{% endblock %}

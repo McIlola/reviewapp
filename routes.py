@@ -1,5 +1,5 @@
 from app import app
-import reviews, loginregister
+import reviews, loginregister, suggestions
 from flask import redirect, render_template, request, session
 
 @app.route("/")
@@ -73,6 +73,18 @@ def restaurant4():
         stars = request.form["stars"]
         reviews.review("4", review, stars)
         return redirect("/restaurant4")
+
+@app.route("/suggestions", methods=["GET", "POST"])
+def give_and_get_suggestions():
+    if request.method == "GET":
+        allsuggestions = suggestions.getsuggest()
+        return render_template("suggestions.html", allsuggestions=allsuggestions)
+    
+    if request.method == "POST":
+        name = request.form["restaurant"]
+        info = request.form["info"]
+        suggestions.suggest(name, info)
+    return redirect("/suggestions")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
