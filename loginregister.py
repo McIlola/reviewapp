@@ -2,8 +2,13 @@ from db import db
 from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
 
+def user_id(username):
+    sql = text("SELECT id FROM Users where username=:username")
+    userid = db.session.execute(sql, {"username":username}).fetchone()
+    return userid[0]
+
 def getuser(username, password):
-    sql = text("SELECT username, password FROM users WHERE username=:username")
+    sql = text("SELECT username, password FROM Users WHERE username=:username")
     user = db.session.execute(sql, {"username":username}).fetchone()
     if not user:
         return False
@@ -17,7 +22,7 @@ def getuser(username, password):
 def registeruser(username, password):
     hash_value = generate_password_hash(password)
     try:
-        sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
+        sql = text("INSERT INTO Users (username, password) VALUES (:username, :password)")
         db.session.execute(sql, {"username":username, "password":hash_value})
         db.session.commit()
     except:

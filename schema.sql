@@ -1,33 +1,32 @@
-CREATE TABLE users (
+CREATE TABLE Users (
     id SERIAL PRIMARY KEY, 
     username TEXT UNIQUE, 
-    password TEXT
+    password TEXT,
+    mod BOOLEAN
 );
-CREATE TABLE restaurant1 (
+CREATE TABLE Restaurants (
     id SERIAL PRIMARY KEY, 
-    username TEXT, 
+    restaurantname TEXT,
+    info TEXT
+);
+CREATE TABLE Reviews (
+    id SERIAL PRIMARY KEY,
+    restaurant_id INTEGER REFERENCES Restaurants, 
+    user_id INTEGER REFERENCES Users, 
     review TEXT, 
     stars INTEGER, 
     created_at TIMESTAMP
 );
-CREATE TABLE restaurant2 (
-    id SERIAL PRIMARY KEY, 
-    username TEXT, 
-    review TEXT, 
-    stars INTEGER, 
-    created_at TIMESTAMP
+CREATE TABLE Followers (
+    user_id INTEGER REFERENCES Users, 
+    follow_id INTEGER REFERENCES Users
 );
-CREATE TABLE restaurant3 (
-    id SERIAL PRIMARY KEY, 
-    username TEXT, 
-    review TEXT, 
-    stars INTEGER, 
-    created_at TIMESTAMP
+CREATE TABLE Suggestions (
+    suggestion TEXT,
+    info TEXT,
+    user_id INTEGER REFERENCES Users
 );
-CREATE TABLE restaurant4 (
-    id SERIAL PRIMARY KEY, 
-    username TEXT, 
-    review TEXT, 
-    stars INTEGER, 
-    created_at TIMESTAMP
-);
+INSERT INTO Restaurants (restaurantname, info) VALUES ('oljenkorsi', 'tietoa paikasta');
+INSERT INTO Restaurants (restaurantname, info) VALUES ('Unicafe chemicum', 'tietoa paikasta');
+INSERT INTO Restaurants (restaurantname, info) VALUES ('Unicafe physicum', 'tietoa paikasta');
+INSERT INTO Restaurants (restaurantname, info) VALUES ('Unicafe exactum', 'tietoa paikasta');
