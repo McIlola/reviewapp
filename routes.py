@@ -5,8 +5,8 @@ import secrets
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    restaurants = reviews.getrestaurants()
     if request.method == "GET":
-        restaurants = reviews.getrestaurants()
         return render_template("index.html", restaurants=restaurants)
 
     if request.method == "POST":
@@ -16,7 +16,7 @@ def index():
         user = loginregister.checkuser(finduser)
         if user:
             return redirect("/profile/"+finduser)
-        return render_template("index.html", message="User does not exist.")
+        return render_template("index.html", message="User does not exist.", restaurants=restaurants)
 
 @app.route("/profile/<string:username>", methods=["GET", "POST"])
 def profile(username):
