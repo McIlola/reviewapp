@@ -59,7 +59,7 @@
 			<form action="/" method="POST">
 				<div class="form-group col-6">
 						<label for="username">Username</label>
-						<input type="text" class="form-control" name="username" id="username">
+						<input type="text" class="form-control" name="username" id="username" maxlength="26">
             <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 						<span style="color: red">{{ message }}</span>
 				</div>
