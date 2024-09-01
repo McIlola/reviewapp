@@ -2,6 +2,11 @@ from db import db
 from sqlalchemy.sql import text
 from flask import session
 
+def getrestaurants():
+    sql = text("SELECT id, restaurantname FROM Restaurants")
+    allrestaurants = db.session.execute(sql).fetchall()
+    return allrestaurants
+
 def avarage(restaurantnum):
     sql = text("SELECT ROUND(AVG(stars), 2) FROM Reviews WHERE restaurant_id=:restaurant_id")
     score = db.session.execute(sql, {"restaurant_id": restaurantnum}).fetchone()

@@ -1,13 +1,17 @@
 from app import app
 import reviews, loginregister, suggestions, followers
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session, abort
+import secrets
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        return render_template("index.html")
+        restaurants = reviews.getrestaurants()
+        return render_template("index.html", restaurants=restaurants)
 
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         finduser = request.form["username"]
         user = loginregister.checkuser(finduser)
         if user:
@@ -25,6 +29,8 @@ def profile(username):
         return render_template("profile.html", username=username, profilesuggestions=profilesuggestions, profilereviews=profilereviews, profilefollowers=profilefollowers, follower=follower)
     
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         request.form["followbtn"]
         if follower:
             followers.unfollow(user_id)
@@ -35,74 +41,23 @@ def profile(username):
             return render_template("profile.html", message=result, username=username, profilesuggestions=profilesuggestions, profilereviews=profilereviews, profilefollowers=profilefollowers, follower=follower)
         return redirect("/profile/"+username)
         
-
-@app.route("/restaurant1", methods=["GET", "POST"])
-def restaurant1():
-    sitename = "restaurant1"
+@app.route("/restaurant/<int:id>", methods=["GET", "POST"])
+def restaurant(id):
     if request.method == "GET":
-        allreviews = reviews.getreviews(1)
-        stars = reviews.avarage(1)
-        amount = reviews.amount(1)
+        allreviews = reviews.getreviews(id)
+        stars = reviews.avarage(id)
+        amount = reviews.amount(id)
         title = "Oljenkorsi"
-        description = f"{ stars } stars from {amount} reviews."
-        return render_template("restaurant.html", allreviews=allreviews, title=title, description=description, sitename=sitename)
+        description = f"{stars} stars from {amount} reviews."
+        return render_template("restaurant.html", allreviews=allreviews, title=title, description=description, id=id)
     
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         review = request.form["review"]
         stars = request.form["stars"]
-        reviews.review(1, review, stars)
-    return redirect("/restaurant1")
-
-@app.route("/restaurant2", methods=["GET", "POST"])
-def restaurant2():
-    sitename = "restaurant2"
-    if request.method == "GET":
-        allreviews = reviews.getreviews("2")
-        stars = reviews.avarage("2")
-        amount = reviews.amount("2")
-        title = "Unicafe chemicum"
-        description = f"{ stars } stars from {amount} reviews."
-        return render_template("restaurant.html", allreviews=allreviews, title=title, description=description, sitename=sitename)
-    
-    if request.method == "POST":
-        review = request.form["review"]
-        stars = request.form["stars"]
-        reviews.review("2", review, stars)
-    return redirect("/restaurant2")
-
-@app.route("/restaurant3", methods=["GET", "POST"])
-def restaurant3():
-    sitename = "restaurant3"
-    if request.method == "GET":
-        allreviews = reviews.getreviews("3")
-        stars = reviews.avarage("3")
-        amount = reviews.amount("3")
-        title = "Unicafe physicum"
-        description = f"{ stars } stars from {amount} reviews."
-        return render_template("restaurant.html", allreviews=allreviews, title=title, description=description, sitename=sitename)
-    
-    if request.method == "POST":
-        review = request.form["review"]
-        stars = request.form["stars"]
-        reviews.review("3", review, stars)
-    return redirect("/restaurant3")
-
-@app.route("/restaurant4", methods=["GET", "POST"])
-def restaurant4():
-    sitename = "restaurant4"
-    if request.method == "GET":
-        allreviews = reviews.getreviews("4")
-        stars = reviews.avarage("4")
-        amount = reviews.amount("4")
-        title = "Unicafe exactum"
-        description = f"{ stars } stars from {amount} reviews."
-        return render_template("restaurant.html", allreviews=allreviews, title=title, description=description, sitename=sitename)
-    
-    if request.method == "POST":
-        review = request.form["review"]
-        stars = request.form["stars"]
-        reviews.review("4", review, stars)
-        return redirect("/restaurant4")
+        reviews.review(id, review, stars)
+    return redirect("/restaurant/"+str(id))
 
 @app.route("/suggestions", methods=["GET", "POST"])
 def give_and_get_suggestions():
@@ -111,6 +66,8 @@ def give_and_get_suggestions():
         return render_template("suggestions.html", allsuggestions=allsuggestions)
     
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         name = request.form["restaurant"]
         info = request.form["info"]
         suggestions.suggest(name, info)
@@ -130,6 +87,7 @@ def login():
         else:
             session["username"] = username
             session["user_id"] = loginregister.user_id(username)
+            session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
 
 @app.route("/register", methods=["GET", "POST"])

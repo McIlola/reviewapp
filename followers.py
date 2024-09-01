@@ -1,7 +1,6 @@
 from db import db
 from sqlalchemy.sql import text
 from flask import session
-import loginregister
 
 def follow(user_id):
     if user_id == session["user_id"]:

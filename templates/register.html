@@ -2,15 +2,32 @@
 {% extends "layout.html" %}
 {% block title %}Register{% endblock %}
 {% block content %}
-<meta charset="utf-8">
-<form action="/register" method="POST">
-    <p>Username:<br>
-        <input type="text" name="username" required minlength="1" maxlength="26"></p>
-    <p>Password:<br>
-        <input type="password" name="password1" required minlength="6" maxlength="26"></p>
-    <p>Password again:<br>
-        <input type="password" name="password2" required minlength="6" maxlength="26"></p>
-    <span style="color: red">{{ message }}</span><br>
-    <input type="submit" value="Register">
-</form>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <h1>Login here:</h1>
+    	<form action="/login" method="POST">
+        <div class="form-group col-6">
+          <label for="inputUsername">Username:</label>
+          <input type="text" class="form-control" name="username" id="inputUsername" required minlength="1" maxlength="26">
+        </div>
+        <div class="form-group col-6">
+          <label for="inputPassword">Password:</label>
+          <input type="password" class="form-control" name="password1" id="inputPassword" required minlength="6" maxlength="26">
+				<span style="color: red">{{ message }}</span><br>
+        </div>
+        <div class="form-group col-6">
+            <label for="inputPassword">Repeat password:</label>
+            <input type="password" class="form-control" name="password2" id="inputPassword" required minlength="6" maxlength="26">
+        </div>
+        <div class="form-group col-6">
+            <span style="color: red">{{ message }}</span><br>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

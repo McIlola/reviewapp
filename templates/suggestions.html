@@ -1,33 +1,57 @@
 <!DOCTYPE html>
 {% extends "layout.html" %}
-{% block title %}{{ title}}{% endblock %}
+{% block title %}Suggestions{% endblock %}
 {% block content %}
-<title>Suggestions</title>
-<h2>Restaurant suggestions</h2>
-<p>
-    Leave suggestions for new restaurants here.
-</p>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 {% if session.username %}
-<form action=/suggestions method="POST">
-    <p>Restaurant name:<br>
-        <input type="text" name="restaurant" required minlength="1" maxlength="200"></p>
-    <p>Info about restaurant:<br>
-        <input type="text" name="info" required minlength="1" maxlength="200"></p>
-    <input type="submit" value="Send">
-</form><hr>
-{% for suggestion in allsuggestions %}
-By: {{ suggestion[0] }} <br>
-Restaurant name: {{ suggestion[1] }} <br>
-Info: {{ suggestion[2] }} <hr>
-{% endfor %}
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+        <h1>Restaurant suggestions</h1>
+        <p>
+            {% for suggestion in allsuggestions %}
+            By: {{ suggestion[0] }} <br>
+            Restaurant name: {{ suggestion[1] }} <br>
+            Info: {{ suggestion[2] }} <hr>
+            {% endfor %}
+    </div>    
+      <div class="col-4">
+        <h3>Leave suggestions for new restaurants here:</h3>
+        <form action="/suggestions" method="POST">
+            <div class="form-group col-6">
+                <label for="restaurant">Restaurant name:</label>
+                <input type="text" class="form-control" name="restaurant" id="restaurant" required minlength="1" maxlength="50">
+            </div>
+            <div class="form-group col-6">
+                <label for="info">Information:</label>
+                <input type="text" class="form-control" name="info" id="info" required min="1" max="200">
+            </div>
+            <div class="form-group col-6">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+        </form>
+      </div>
+  </div>
+</div>
+
 {% else %}
-<p>
-    Login to leave restaurant suggestions.
-</p> <hr>
-{% for suggestion in allsuggestions %}
-By: {{ suggestion[0] }} <br>
-Restaurant name: {{ suggestion[1] }} <br>
-Info: {{ suggestion[2] }} <hr>
-{% endfor %} 
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <h1>Restaurant suggestions</h1>
+            <p>
+                Log in to leave suggestions.
+            <p>
+                {% for suggestion in allsuggestions %}
+                By: {{ suggestion[0] }} <br>
+                Restaurant name: {{ suggestion[1] }} <br>
+                Info: {{ suggestion[2] }} <hr>
+                {% endfor %}
+        </div>    
+    </div>
+</div>
+
 {% endif %}
 {% endblock %}

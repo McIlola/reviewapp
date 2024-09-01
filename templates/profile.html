@@ -2,30 +2,66 @@
 {% extends "layout.html" %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-Profile page for {{username}}
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 {% if session.username %}
-<form action="/profile/{{username}}" method="POST">
-    <input type="hidden" name="followbtn" value="follow">
-    <input type="submit" value="Follow">
-    <span style="color: red">{{ message }}</span><br>
-</form>
-<h2>Reviews by {{username}}:</h2><br>
-{% for review in profilereviews %}
-    Review: {{ review[0] }} <br>
-    Stars: {{ review[1] }} <br>
-    Created: {{ review[2].strftime("%d-%m-%Y %H:%M:%S") }}<hr>
-{% endfor %}
-<h2>Suggestions by {{username}}:</h2><br>
-{% for suggestion in profilesuggestions %}
-    Suggestion: {{ suggestion[0] }} <br>
-    Info: {{ suggestion[1] }} <br>
-{% endfor %}
-<h2>Followowing:</h2><br>
-{% for follower in profilefollowers %}
-    Username: {{ follower[0] }} <br>
-{% endfor %}
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <h1>Profile page for {{username}}.</h1>
+      {% if follower %}
+      <form action="/profile/{{username}}" method="POST">
+        <div class="form-group col-6">
+            <input type="hidden" name="followbtn" value="unfollow">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        </div>
+        <div class="form-group col-6">
+          <button type="submit" class="btn btn-primary">Unfollow</button>
+        </div>
+      </form>
+      {% else %}
+      <form action="/profile/{{username}}" method="POST">
+        <div class="form-group col-6">
+            <input type="hidden" name="followbtn" value="follow">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        </div>
+        <div class="form-group col-6">
+            <button type="submit" class="btn btn-primary">Follow</button>
+        </div>
+      </form>
+      {% endif %}
+      <p>
+        <h2>Reviews by {{username}}:</h2>
+        {% for review in profilereviews %}
+            Review: {{ review[0] }} <br>
+            Stars: {{ review[1] }} <br>
+            Created: {{ review[2].strftime("%d-%m-%Y %H:%M:%S") }}<hr>
+        {% endfor %}
+      <p>
+        <h2>Suggestions by {{username}}:</h2>
+        {% for suggestion in profilesuggestions %}
+            Suggestion: {{ suggestion[0] }} <br>
+            Info: {{ suggestion[1] }} <br>
+        {% endfor %}
+    </div>
+    <div class="col-4">
+      <h2>Followowing:</h2>
+      <p>
+        {% for follower in profilefollowers %}
+            {{ follower[0] }} <br>
+        {% endfor %}
+    </div>
+  </div>
+</div>
 {% else %}
-Login to see profiles.
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <p>
+                Login to see profiles.
+        </div>
+    </div>
+</div>
 {% endif %}
 {% endblock %}
         

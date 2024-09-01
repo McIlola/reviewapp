@@ -1,16 +1,46 @@
 <!doctype html>
-<title>Reviewapp - {% block title %}{% endblock %}</title>
-<h1>Reviewapp</h1>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<title>Review app - {% block title %}{% endblock %}</title>
 {% if session.username %}
-<a href="/"><button>Home</button></a>
-<a href="/suggestions"><button>Suggest</button></a>
-<a href="/profile/{{ session.username }}"><button>Profile</button></a>
-<a href="/logout"><button>Logout</button></a>
+<div class="container"></div>
+  <nav class="navbar navbar-expand-sm navbar-light">
+    <a class="navbar-brand" href="/">Review App</a>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/suggestions">Suggestions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profile/{{ session.username }}">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+    </ul>
+  </nav>
+</div>
 {% else %}
-<a href="/"><button>Home</button></a>
-<a href="/login"><button>Login</button></a>
-<a href="/register"><button>Register</button></a>
-<a href="/suggestions"><button>Suggest</button></a>
+<div class="container"></div>
+  <nav class="navbar navbar-expand-sm navbar-light">
+    <a class="navbar-brand" href="#">Review App</a>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/register">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/suggestions">Suggestions</a>
+      </li>
+    </ul>
+  </nav>
+</div>
 {% endif %}
-<hr>
 {% block content %}{% endblock %}
