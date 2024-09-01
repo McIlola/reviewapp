@@ -7,6 +7,12 @@ def user_id(username):
     userid = db.session.execute(sql, {"username":username}).fetchone()
     return userid[0]
 
+def checkuser(username):
+    sql = text("SELECT id FROM Users where username=:username")
+    user = db.session.execute(sql, {"username":username}).fetchone()
+    if not user: return False
+    return True
+
 def getuser(username, password):
     sql = text("SELECT username, password FROM Users WHERE username=:username")
     user = db.session.execute(sql, {"username":username}).fetchone()

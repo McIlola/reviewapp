@@ -4,6 +4,7 @@
 {% if session.username %}
 <a href="/"><button>Home</button></a>
 <a href="/suggestions"><button>Suggest</button></a>
+<a href="/profile/{{ session.username }}"><button>Profile</button></a>
 <a href="/logout"><button>Logout</button></a>
 {% else %}
 <a href="/"><button>Home</button></a>

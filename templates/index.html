@@ -6,6 +6,12 @@
 Welcome!
 {% if session.username %}
 <p>Logged in with username: {{ session.username }}</p>
+<form action="/" method="POST">
+    <p>Search for user:<br>
+        <input type="text" name="username" minlength="1" maxlength="26"></p>
+        <input type="submit" value="Search">
+        <span style="color: red">{{ message }}</span><br>
+</form>
 <ul>
     <li><a href="/restaurant1">Oljenkorsi</a><br>
     <li><a href="/restaurant2">Unicafe chemicum</a><br>

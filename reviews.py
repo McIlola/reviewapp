@@ -17,6 +17,11 @@ def getreviews(restaurantnum):
     result = db.session.execute(sql, {"restaurant_id": restaurantnum}).fetchall()
     return result
 
+def getprofilereviews(user_id):
+    sql = text("SELECT R.review, R.stars, R.created_at FROM Reviews R WHERE R.user_id=:user_id ORDER BY R.id DESC")
+    result = db.session.execute(sql, {"user_id": user_id}).fetchall()
+    return result
+
 def review(restaurant_id, review, stars):
     user_id = session["user_id"]
     sql = text("INSERT INTO Reviews (restaurant_id, user_id, review, stars, created_at) VALUES (:restaurant_id, :user_id, :review, :stars, NOW())")

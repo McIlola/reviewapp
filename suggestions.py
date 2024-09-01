@@ -7,6 +7,11 @@ def getsuggest():
     suggestions = db.session.execute(sql).fetchall()
     return suggestions
 
+def getprofilesuggest(user_id):
+    sql = text("SELECT S.suggestion, S.info FROM Suggestions S WHERE S.user_id=:user_id")
+    profilesuggestions = db.session.execute(sql, {"user_id": user_id}).fetchall()
+    return profilesuggestions
+
 def suggest(name, info):
     user_id = session["user_id"]
     sql = text("INSERT INTO Suggestions (suggestion, info, user_id) VALUES (:suggestion, :info, :user_id)")

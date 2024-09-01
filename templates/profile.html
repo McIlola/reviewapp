@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+Profile page for {{username}}
+{% if session.username %}
+<form action="/profile/{{username}}" method="POST">
+    <input type="hidden" name="followbtn" value="follow">
+    <input type="submit" value="Follow">
+    <span style="color: red">{{ message }}</span><br>
+</form>
+<h2>Reviews by {{username}}:</h2><br>
+{% for review in profilereviews %}
+    Review: {{ review[0] }} <br>
+    Stars: {{ review[1] }} <br>
+    Created: {{ review[2].strftime("%d-%m-%Y %H:%M:%S") }}<hr>
+{% endfor %}
+<h2>Suggestions by {{username}}:</h2><br>
+{% for suggestion in profilesuggestions %}
+    Suggestion: {{ suggestion[0] }} <br>
+    Info: {{ suggestion[1] }} <br>
+{% endfor %}
+<h2>Followowing:</h2><br>
+{% for follower in profilefollowers %}
+    Username: {{ follower[0] }} <br>
+{% endfor %}
+{% else %}
+Login to see profiles.
+{% endif %}
+{% endblock %}
+        

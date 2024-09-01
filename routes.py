@@ -1,10 +1,40 @@
 from app import app
-import reviews, loginregister, suggestions
+import reviews, loginregister, suggestions, followers
 from flask import redirect, render_template, request, session
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
+    if request.method == "GET":
+        return render_template("index.html")
+
+    if request.method == "POST":
+        finduser = request.form["username"]
+        user = loginregister.checkuser(finduser)
+        if user:
+            return redirect("/profile/"+finduser)
+        return render_template("index.html", message="User does not exist.")
+
+@app.route("/profile/<string:username>", methods=["GET", "POST"])
+def profile(username):
+    user_id = loginregister.user_id(username)
+    follower = followers.is_following(user_id)
+    profilefollowers = followers.getfollowers(user_id)
+    profilesuggestions = suggestions.getprofilesuggest(user_id)
+    profilereviews = reviews.getprofilereviews(user_id)
+    if request.method == "GET":
+        return render_template("profile.html", username=username, profilesuggestions=profilesuggestions, profilereviews=profilereviews, profilefollowers=profilefollowers, follower=follower)
+    
+    if request.method == "POST":
+        request.form["followbtn"]
+        if follower:
+            followers.unfollow(user_id)
+        else:
+            result = followers.follow(user_id)
+            if result:
+                return redirect("/profile/"+username)
+            return render_template("profile.html", message=result, username=username, profilesuggestions=profilesuggestions, profilereviews=profilereviews, profilefollowers=profilefollowers, follower=follower)
+        return redirect("/profile/"+username)
+        
 
 @app.route("/restaurant1", methods=["GET", "POST"])
 def restaurant1():
@@ -111,7 +141,6 @@ def register():
         username = request.form["username"]
         password1 = request.form["password1"]
         password2 = request.form["password2"]
-        admin = False
         if password1 != password2:
             return render_template("register.html", message="Not the same password!")
         new = loginregister.registeruser(username, password1)
